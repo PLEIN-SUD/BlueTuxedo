@@ -21,10 +21,21 @@ function Get-BTTombstonedNode {
     $TombstonedNodeList = @()
 
     foreach ($domain in $Domains) {
+        # Find a valid DC from $domain and get it's resource record
+        $DCs = (Get-ADDomain -Identity $domain).ReplicaDirectoryServers
+        foreach ($DC in $DCs) {
+            if (Test-WSMan -ComputerName $DC -ErrorAction SilentlyContinue) {
+                $ValidDC = $DC
+                break
+            }
+        }
+
+        if (-Not $ValidDC) {$ValidDC = $domain}
+
         $domainDN = (Get-ADDomain $domain).DistinguishedName
-        $Zones = Get-DnsServerZone -ComputerName $domain
+        $Zones = Get-DnsServerZone -ComputerName $ValidDC
         foreach ($zone in $Zones) {
-            $Nodes = Get-DnsServerResourceRecord -ComputerName $domain -ZoneName $zone.ZoneName
+            $Nodes = Get-DnsServerResourceRecord -ComputerName $ValidDC -ZoneName $zone.ZoneName
             foreach ($node in $Nodes) {
                 if ($node.DistinguishedName -like "*$domainDN") {
                     try {

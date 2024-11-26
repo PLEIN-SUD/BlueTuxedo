@@ -23,11 +23,11 @@ function Get-BTZoneScope {
     foreach ($dnsServer in $script:DNSServers) {
 
         # Enumerate the zone scopes on each DNS server
-        $ZoneScopes = Get-DnsServerZone -ComputerName $dnsServer.IPAddress | Where-Object {
+        $ZoneScopes = Get-DnsServerZone -ComputerName $dnsServer.Name | Where-Object {
             ($_.IsDsIntegrated -eq $true) -and
             ($_.IsReverseLookupZone -eq $false) -and
             ($_.ZoneName -ne 'TrustAnchors')
-        } | Get-DnsServerZoneScope -ComputerName $dnsServer.IPAddress -ErrorAction Ignore
+        } | Get-DnsServerZoneScope -ComputerName $dnsServer.Name -ErrorAction Ignore
 
         if ($ZoneScopeList.'Server IP' -notcontains $dnsServer.IPAddress) {
             foreach ($scope in $ZoneScopes) {

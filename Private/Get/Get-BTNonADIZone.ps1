@@ -23,7 +23,7 @@ function Get-BTNonADIZone {
     foreach ($dnsServer in $script:DNSServers) {
 
         # Enumerate the zones on each DNS server.
-        $Zones = Get-DnsServerZone -ComputerName $dnsServer.IPAddress | Where-Object {
+        $Zones = Get-DnsServerZone -ComputerName $dnsServer.Name | Where-Object {
             ($_.IsAutoCreated -eq $false) -and
             ($_.ZoneType -ne 'Forwarder') -and
             ($_.IsDsIntegrated -eq $false)

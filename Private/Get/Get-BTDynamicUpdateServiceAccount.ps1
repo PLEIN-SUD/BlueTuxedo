@@ -13,7 +13,7 @@ function Get-BTDynamicUpdateServiceAccount {
     $DHCPServers = Get-DhcpServerInDC
     foreach ($dhcpserver in $DHCPServers) {
         $DynamicUpdateServiceAccounts = try {
-            Get-DhcpServerDnsCredential -ComputerName $dhcpserver.IPAddress 
+            Get-DhcpServerDnsCredential -ComputerName $dhcpserver.DnsName 
         } catch {
             [PSCustomObject]@{
                 UserName   = 'Not Configured'

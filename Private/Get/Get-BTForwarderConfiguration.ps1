@@ -23,7 +23,7 @@ function Get-BTForwarderConfiguration {
     foreach ($dnsServer in $script:DNSServers) {
 
         # Enumerate the forwarders on each DNS server
-        [array]$Forwarders = Get-DnsServerForwarder -ComputerName $dnsServer.IPAddress
+        [array]$Forwarders = Get-DnsServerForwarder -ComputerName $dnsServer.Name
 
         # Add to the list if this DNS server's IP address is not already in the list.
         if ($ForwarderList.'Server IP' -notcontains $dnsServer.IPAddress) {
