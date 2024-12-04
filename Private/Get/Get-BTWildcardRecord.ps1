@@ -16,7 +16,7 @@ function Get-BTWildcardRecord {
         'DnsKey','DS','NSec','NSec3','NSec3Param','Tlsa')
         $WildcardExists = $false
         foreach ($rrtype in $RRTypes) {
-            # Find a valid DC from $domain and get it's resource record
+            # Find a valid DC from $domain and get its resource record
             $DCs = (Get-ADDomain -Identity $domain).ReplicaDirectoryServers
             foreach ($DC in $DCs) {
                 if (Test-WSMan -ComputerName $DC -ErrorAction SilentlyContinue) {
