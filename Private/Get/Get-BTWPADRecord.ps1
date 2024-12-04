@@ -16,7 +16,17 @@ function Get-BTWPADRecord {
         'DnsKey','DS','NSec','NSec3','NSec3Param','Tlsa')
         $WPADExists = $false
         foreach ($rrtype in $RRTypes) {
-            if (Get-DnsServerResourceRecord -ComputerName $domain -ZoneName $domain -RRType $rrtype -Name 'wpad' -ErrorAction Ignore) {
+            # Find a valid DC from $domain and get its resource record
+            $DCs = (Get-ADDomain -Identity $domain).ReplicaDirectoryServers
+            foreach ($DC in $DCs) {
+                if (Test-WSMan -ComputerName $DC -ErrorAction SilentlyContinue) {
+                    $ValidDC = $DC
+                    break
+                }
+            }
+
+            if (-Not $ValidDC) {$ValidDC = $domain}
+            if (Get-DnsServerResourceRecord -ComputerName $ValidDC -ZoneName $domain -RRType $rrtype -Name 'wpad' -ErrorAction Ignore) {
                 $WPADExists = $true
                 $ActualRRType = $rrtype
             }

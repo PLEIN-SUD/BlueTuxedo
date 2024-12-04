@@ -23,7 +23,7 @@ function Get-BTGlobalQueryBlockList {
     foreach ($dnsServer in $script:DNSServers) {
 
         # Enumerate the global query blocklists on each DNS server
-        [array]$ServerGQBLs = Get-DnsServerGlobalQueryBlockList -ComputerName $dnsServer.IPAddress
+        [array]$ServerGQBLs = Get-DnsServerGlobalQueryBlockList -ComputerName $dnsServer.Name
 
         foreach ($gqbl in $ServerGQBLs) {
             # Add it to the list with server information

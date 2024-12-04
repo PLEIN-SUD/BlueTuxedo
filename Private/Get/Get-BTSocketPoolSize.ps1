@@ -23,7 +23,7 @@ function Get-BTSocketPoolSize {
     foreach ($dnsServer in $script:DNSServers) {
 
         # Enumerate the socket pool size on each DNS server.
-        [int32]$SocketPoolSize = (Get-DnsServerSetting -ComputerName $dnsServer.IPAddress -All -WarningAction Ignore).SocketPoolSize
+        [int32]$SocketPoolSize = (Get-DnsServerSetting -ComputerName $dnsServer.Name -All -WarningAction Ignore).SocketPoolSize
         if ($SocketPoolSizeList.'Server IP' -notcontains $dnsServer.IPAddress) {
             $AddToList = [PSCustomObject]@{
                 'Server Name'      = $dnsServer.Name
