@@ -52,7 +52,7 @@ function Get-BTDanglingSPN {
         # Keep this outside the other domain loop so all DNS records will be available for the entire script.
         Write-Host "[$(Get-Date -format 'yyyy-MM-dd hh:mm:ss')] Getting DNS records from domains: $($Domains -join ', ')" -ForegroundColor White -BackgroundColor Black
         foreach ($domain in $Domains) {
-            # Find a valid DC from $domain and get it's resource record
+            # Find a valid DC from $domain and get its resource record
             $DCs = (Get-ADDomain -Identity $domain).ReplicaDirectoryServers
             foreach ($DC in $DCs) {
                 if (Test-WSMan -ComputerName $DC -ErrorAction SilentlyContinue) {
