@@ -2,7 +2,7 @@
 A tiny tool built to find and fix common misconfigurations in Active Directory-Integrated DNS (and a little DHCP as a treat).
 
 ## How can BlueTuxedo help you?
-[Read the slides from WWHF.](https://github.com/TrimarcJake/BlueTuxedo/blob/main/ADI%20DNS%20-%20No%20demo.pptx)
+[Read the slides from WWHF.](https://github.com/jakehildreth/BlueTuxedo/blob/main/ADI%20DNS%20-%20No%20demo.pptx)
 
 [Watch the presentation from BSidesCharm.](https://www.hub.trimarcsecurity.com/post/ad-dns-a-match-made-in-heck)
 
@@ -13,13 +13,13 @@ Install-Module -Name BlueTuxedo -Scope CurrentUser
 Invoke-BlueTuxedo
 
 # Clone from GitHub and Import
-git clone https://github.com/TrimarcJake/BlueTuxedo.git
+git clone https://github.com/jakehildreth/BlueTuxedo.git
 cd BlueTuxedo
 Import-Module .\BlueTuxedo.psd1 -Force
 Invoke-BlueTuxedo
 
 # Use the testing branch - probably broken, but 🤷‍♀️
-git clone https://github.com/TrimarcJake/BlueTuxedo.git
+git clone https://github.com/jakehildreth/BlueTuxedo.git
 cd BlueTuxedo
 git checkout testing
 Import-Module .\BlueTuxedo.psd1 -Force

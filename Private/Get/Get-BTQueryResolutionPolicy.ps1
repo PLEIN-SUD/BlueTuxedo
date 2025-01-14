@@ -23,7 +23,7 @@ function Get-BTQueryResolutionPolicy {
     foreach ($dnsServer in $script:DNSServers) {
 
         # Enumerate the query resolution policies on each DNS server
-        $QueryResolutionPolicies = (Get-DnsServer -ComputerName $dnsServer.IPAddress -ErrorAction Ignore -WarningAction Ignore).ServerPolicies
+        $QueryResolutionPolicies = (Get-DnsServer -ComputerName $dnsServer.Name -ErrorAction Ignore -WarningAction Ignore).ServerPolicies
 
         # Add to the list if this DNS server's IP address is not already in the list.
         if ($QueryResolutionPolicyList.'Server IP' -notcontains $dnsServer.IPAddress) {

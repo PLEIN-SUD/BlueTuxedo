@@ -12,8 +12,8 @@ function Get-BTNameProtectionConfiguration {
     $NameProtectionConfigurationList = @()
 
     foreach ($dhcpServer in $DHCPServers) {
-        $NameProtectionv4Configuration = (Get-DhcpServerv4DnsSetting -ComputerName $dhcpServer.IPAddress).NameProtection
-        $NameProtectionv6Configuration = (Get-DhcpServerv6DnsSetting -ComputerName $dhcpServer.IPAddress).NameProtection
+        $NameProtectionv4Configuration = (Get-DhcpServerv4DnsSetting -ComputerName $dhcpServer.dnsName).NameProtection
+        $NameProtectionv6Configuration = (Get-DhcpServerv6DnsSetting -ComputerName $dhcpServer.dnsName).NameProtection
         if ($NameProtectionConfigurationList.'Server IP' -notcontains $dhcpServer.IPAddress) {
             $AddToList = [PSCustomObject]@{
                 'Server Name'          = $dhcpServer.DnsName

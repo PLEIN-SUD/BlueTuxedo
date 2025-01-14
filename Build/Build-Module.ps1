@@ -24,7 +24,7 @@ Build-Module -ModuleName 'BlueTuxedo' {
         Copyright            = "(c) 2023 - $((Get-Date).Year). All rights reserved."
         Description          = 'A tiny tool to identify and remediate common misconfigurations in Active Directory-Integrated DNS.'
         PowerShellVersion    = '5.1'
-        ProjectUri           = 'https://github.com/TrimarcJake/BlueTuxedo'
+        ProjectUri           = 'https://github.com/jakehildreth/BlueTuxedo'
         Tags                 = @('Windows', 'BlueTuxedo', 'DNS', 'AD', 'ActiveDirectory', 'DomainNameSystem', 'ADIDNS')
     }
     New-ConfigurationManifest @Manifest
@@ -46,6 +46,7 @@ Build-Module -ModuleName 'BlueTuxedo' {
         'Microsoft.PowerShell.Utility'
         'Microsoft.PowerShell.LocalAccounts'
         'Microsoft.PowerShell.Management'
+        'Microsoft.WSMan.Management'
     )
     foreach ($Module in $ExternalModules) {
         New-ConfigurationModule -Type ExternalModule -Name $Module
@@ -122,5 +123,5 @@ Build-Module -ModuleName 'BlueTuxedo' {
     New-ConfigurationArtefact -Type Script -Enable -Path "$PSScriptRoot\..\Artefacts\Script" -PreScriptMerge $PreScriptMerge -PostScriptMerge $PostScriptMerge -ScriptName 'Invoke-<ModuleName>.ps1'
     New-ConfigurationArtefact -Type ScriptPacked -Enable -Path "$PSScriptRoot\..\Artefacts\ScriptPacked" -ArtefactName 'Invoke-<ModuleName>.zip' -PreScriptMerge $PreScriptMerge -PostScriptMerge $PostScriptMerge -ScriptName 'Invoke-<ModuleName>.ps1'
     New-ConfigurationArtefact -Type Unpacked -Enable -Path "$PSScriptRoot\..\Artefacts\Unpacked"
-    New-ConfigurationPublish -Type PowerShellGallery -FilePath 'C:\Users\jake.BLUETUXEDO\Documents\API Keys\PSGallery.txt'
+    # New-ConfigurationPublish -Type PowerShellGallery -FilePath 'C:\Users\jake.BLUETUXEDO\Documents\API Keys\PSGallery.txt'
 }
