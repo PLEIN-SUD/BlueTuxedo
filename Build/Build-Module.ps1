@@ -1,4 +1,9 @@
-﻿if (Get-Module -Name 'PSPublishModule' -ListAvailable) {
+﻿param (
+    # A CalVer string if you need to manually override the default yyyy.M.d version string.
+    [string]$CalVer
+)
+
+if (Get-Module -Name 'PSPublishModule' -ListAvailable) {
     Write-Information 'PSPublishModule is installed.'
 } else {
     Write-Information 'PSPublishModule is not installed. Attempting installation.'
@@ -14,14 +19,16 @@
 Update-Module -Name PSPublishModule
 Import-Module -Name PSPublishModule -Force
 
+$CopyrightYear = if ($Calver) { $CalVer.Split('.')[0] } else { (Get-Date -Format yyyy) }
+
 Build-Module -ModuleName 'BlueTuxedo' {
     # Usual defaults as per standard module
     $Manifest = [ordered] @{
-        ModuleVersion        = '2024.10'
+        ModuleVersion        = if ($Calver) { $CalVer } else { (Get-Date -Format yyyy.M.d) }
         CompatiblePSEditions = @('Desktop', 'Core')
         GUID                 = 'e98445b3-1d76-4a51-831d-ddfc7e0213fa'
         Author               = 'Jake Hildreth and Jim Sykora'
-        Copyright            = "(c) 2023 - $((Get-Date).Year). All rights reserved."
+        Copyright            = "(c) 2023 - ${CopyrightYear}. All rights reserved."
         Description          = 'A tiny tool to identify and remediate common misconfigurations in Active Directory-Integrated DNS.'
         PowerShellVersion    = '5.1'
         ProjectUri           = 'https://github.com/jakehildreth/BlueTuxedo'
@@ -123,5 +130,5 @@ Build-Module -ModuleName 'BlueTuxedo' {
     New-ConfigurationArtefact -Type Script -Enable -Path "$PSScriptRoot\..\Artefacts\Script" -PreScriptMerge $PreScriptMerge -PostScriptMerge $PostScriptMerge -ScriptName 'Invoke-<ModuleName>.ps1'
     New-ConfigurationArtefact -Type ScriptPacked -Enable -Path "$PSScriptRoot\..\Artefacts\ScriptPacked" -ArtefactName 'Invoke-<ModuleName>.zip' -PreScriptMerge $PreScriptMerge -PostScriptMerge $PostScriptMerge -ScriptName 'Invoke-<ModuleName>.ps1'
     New-ConfigurationArtefact -Type Unpacked -Enable -Path "$PSScriptRoot\..\Artefacts\Unpacked"
-    # New-ConfigurationPublish -Type PowerShellGallery -FilePath 'C:\Users\jake.BLUETUXEDO\Documents\API Keys\PSGallery.txt'
+    # New-ConfigurationPublish -Type PowerShellGallery -FilePath 'C:\Users\Administrator.adcs\Documents\PowerShellGalleryAPI.txt'
 }
