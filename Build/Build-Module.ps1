@@ -26,7 +26,7 @@ $CopyrightYear = if ($Calver) { $CalVer.Split('.')[0] } else { (Get-Date -Format
 Build-Module -ModuleName 'BlueTuxedo' {
     # Usual defaults as per standard module
     $Manifest = [ordered] @{
-        ModuleVersion        = if ($Calver) { $CalVer } else { (Get-Date -Format yyyy.M.d) }
+        ModuleVersion        = if ($Calver) { $CalVer } else { (Get-Date -Format yyyy.M.d.Hmm -AsUTC) }
         CompatiblePSEditions = @('Desktop', 'Core')
         GUID                 = 'e98445b3-1d76-4a51-831d-ddfc7e0213fa'
         Author               = 'Jake Hildreth and Jim Sykora'
