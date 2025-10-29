@@ -7,7 +7,7 @@
     Description          = 'A tiny tool to identify and remediate common misconfigurations in Active Directory-Integrated DNS.'
     FunctionsToExport    = @('*')
     GUID                 = 'e98445b3-1d76-4a51-831d-ddfc7e0213fa'
-    ModuleVersion        = '2025.10.25'
+    ModuleVersion        = '2025.10.29'
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
